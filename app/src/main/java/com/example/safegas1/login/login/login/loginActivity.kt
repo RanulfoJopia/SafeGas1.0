@@ -1,52 +1,56 @@
 package com.example.safegas1.login.login.login
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.safegas1.R
 import com.example.safegas1.login.login.dashboard.dashboardActivity
+import com.example.safegas1.login.login.register.registerActivity
 
-class loginActivity : AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
+class loginActivity : AppCompatActivity(), LoginView {
+
+    private lateinit var presenter: LoginPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_login)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
-        // 🔹 find the views
-        val emailEt = findViewById<EditText>(R.id.email)
-        val passwordEt = findViewById<EditText>(R.id.password)
+        presenter = LoginPresenter(this)
+
+        val bottomCreate = findViewById<TextView>(R.id.bottomCreate)
         val btnSignIn = findViewById<Button>(R.id.btnSignIn)
+        val emailField = findViewById<EditText>(R.id.email)
+        val passwordField = findViewById<EditText>(R.id.password)
 
-        // 🔹 on click Sign In
-        btnSignIn.setOnClickListener {
-            val email = emailEt.text.toString()
-            val password = passwordEt.text.toString()
-
-            // Optional validation
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
-            } else {
-                // 🔹 go to DashboardActivity
-                val intent = Intent(this, dashboardActivity::class.java)
-                intent.putExtra("email", email)
-                startActivity(intent)
-
-                // Optional: prevent returning to login
-                finish()
-            }
+        bottomCreate.setOnClickListener {
+            val intent = Intent(this, registerActivity::class.java)
+            startActivity(intent)
         }
+
+        btnSignIn.setOnClickListener {
+            val email = emailField.text.toString().trim()
+            val password = passwordField.text.toString().trim()
+
+            presenter.loginUser(email, password)
+        }
+    }
+
+    override fun onLoginSuccess(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        //Navigate to dashboard
+        startActivity(Intent(this, dashboardActivity::class.java))
+        finish()
+    }
+
+    override fun onLoginError(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onValidationError(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

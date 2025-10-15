@@ -1,4 +1,8 @@
 package com.example.safegas1.login.login.login
 
-class loginView {
+
+interface LoginView {
+    fun onLoginSuccess(message: String)
+    fun onLoginError(message: String)
+    fun onValidationError(message: String)
 }
