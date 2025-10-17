@@ -15,17 +15,23 @@ class RegisterModel {
         location: String,
         callback: RegisterCallback
     ) {
-        val userId = databaseReference.push().key ?: return callback.onError("Database error.")
+        databaseReference.get().addOnSuccessListener { snapshot ->
+            val nextIdNumber = snapshot.childrenCount.toInt() + 1
+            val customId = "uid" + String.format("%03d", nextIdNumber)
 
-        val user = User(fullName, email, password, location)
+            val user = User(fullName, email, password, location, customId)
 
-        databaseReference.child(userId).setValue(user)
-            .addOnSuccessListener { callback.onSuccess() }
-            .addOnFailureListener { e -> callback.onError(e.message ?: "Unknown error") }
+            databaseReference.child(customId).setValue(user)
+                .addOnSuccessListener { callback.onSuccess(customId) } // ✅ return UID here
+                .addOnFailureListener { e -> callback.onError(e.message ?: "Unknown error") }
+
+        }.addOnFailureListener {
+            callback.onError("Failed to generate user ID.")
+        }
     }
 
     interface RegisterCallback {
-        fun onSuccess()
+        fun onSuccess(uid: String)   // ✅ changed to include UID
         fun onError(message: String)
     }
 
@@ -33,6 +39,7 @@ class RegisterModel {
         val fullName: String = "",
         val email: String = "",
         val password: String = "",
-        val location: String = ""
+        val location: String = "",
+        val uid: String = ""
     )
 }

@@ -19,7 +19,8 @@ class loginActivity : AppCompatActivity(), LoginView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        presenter = LoginPresenter(this)
+        // ✅ Pass context to presenter
+        presenter = LoginPresenter(this, this)
 
         val bottomCreate = findViewById<TextView>(R.id.bottomCreate)
         val btnSignIn = findViewById<Button>(R.id.btnSignIn)
@@ -34,14 +35,12 @@ class loginActivity : AppCompatActivity(), LoginView {
         btnSignIn.setOnClickListener {
             val email = emailField.text.toString().trim()
             val password = passwordField.text.toString().trim()
-
             presenter.loginUser(email, password)
         }
     }
 
     override fun onLoginSuccess(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-        //Navigate to dashboard
         startActivity(Intent(this, dashboardActivity::class.java))
         finish()
     }

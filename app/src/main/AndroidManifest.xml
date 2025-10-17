@@ -39,7 +39,7 @@
             android:name=".login.login.login.loginActivity"
             android:exported="false" />
         <activity
-            android:name=".login.login.Alert.alertActivity"
+            android:name=".login.login.alert.AlertActivity"
             android:exported="false" />
         <activity
             android:name=".login.login.dashboard.dashboardActivity"

@@ -47,7 +47,7 @@ class registerActivity : AppCompatActivity(), RegisterView {
         progressBar = ProgressBar(this).apply { visibility = View.GONE }
 
         // ✅ Initialize presenter
-        presenter = RegisterPresenter(this)
+        presenter = RegisterPresenter(this,this)
 
         // ✅ Button click
         btnCreateAccount.setOnClickListener {

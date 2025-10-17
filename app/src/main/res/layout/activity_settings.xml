@@ -266,6 +266,7 @@ Battery 82%, Last seen 2 min ago"
             android:gravity="center">
 
             <ImageView
+                android:id="@+id/btnDashboard"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_home"
@@ -294,6 +295,7 @@ Battery 82%, Last seen 2 min ago"
                 app:tint="#000" />
 
             <TextView
+                android:id="@+id/btnAlert"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Alerts"
@@ -310,6 +312,7 @@ Battery 82%, Last seen 2 min ago"
             android:gravity="center">
 
             <ImageView
+                android:id="@+id/btnHistory"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_history"
@@ -332,6 +335,7 @@ Battery 82%, Last seen 2 min ago"
             android:gravity="center">
 
             <ImageView
+                android:id="@+id/btnSettings"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_setting"

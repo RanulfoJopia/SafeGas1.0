@@ -1,6 +1,8 @@
 package com.example.safegas1.login.login.register
 
-class RegisterPresenter(private val view: RegisterView) {
+import android.content.Context
+
+class RegisterPresenter(private val view: RegisterView, private val context: Context) {
 
     private val model = RegisterModel()
 
@@ -30,8 +32,13 @@ class RegisterPresenter(private val view: RegisterView) {
         view.onRegisterLoading(true)
 
         model.registerUser(fullName, email, password, location, object : RegisterModel.RegisterCallback {
-            override fun onSuccess() {
+            override fun onSuccess(uid: String) {
                 view.onRegisterLoading(false)
+
+                // ✅ Save UID locally
+                val sharedPref = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+                sharedPref.edit().putString("user_uid", uid).apply()
+
                 view.onRegisterSuccess()
             }
 

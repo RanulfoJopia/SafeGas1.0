@@ -1,33 +1,45 @@
 package com.example.safegas1.login.login.dashboard
 
+import android.content.Context
 import com.google.firebase.database.FirebaseDatabase
 
-class DashboardPresenter(private val view: DashboardView) {
+class DashboardPresenter(
+    private val context: Context,
+    private val view: DashboardView
+) {
 
-    // Hardcoded user UID from your Firebase database JSON
-    private val uid = "uid123"
+    private val database = FirebaseDatabase.getInstance().getReference("sensors")
 
     fun fetchSensorData() {
-        val databaseRef = FirebaseDatabase.getInstance().getReference("$uid/dashboard")
+        // Get UID from SharedPreferences
+        val sharedPref = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val uid = sharedPref.getString("user_uid", null)
 
-        databaseRef.get()
+        if (uid == null) {
+            view.showError("User not logged in. Please log in again.")
+            view.hideData()
+            return
+        }
+
+        // Fetch user’s dashboard data
+        database.child(uid).child("dashboard").get()
             .addOnSuccessListener { snapshot ->
                 if (snapshot.exists()) {
                     val data = snapshot.getValue(SensorData::class.java)
                     if (data != null) {
                         view.showData(data)
                     } else {
+                        view.showError("Invalid dashboard data format.")
                         view.hideData()
-                        view.showError("Sensor data is missing.")
                     }
                 } else {
+                    view.showError("No dashboard data found for this user.")
                     view.hideData()
-                    view.showError("No sensor data found.")
                 }
             }
             .addOnFailureListener { error ->
-                view.hideData()
                 view.showError("Failed to fetch data: ${error.message}")
+                view.hideData()
             }
     }
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:id="@+id/main"
+    android:orientation="vertical"
     android:background="@android:color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -15,14 +15,12 @@
         android:padding="16dp"
         android:gravity="center_vertical">
 
-        <!-- Menu icon -->
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_menu"
             android:contentDescription="menu" />
 
-        <!-- Title -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,6 +33,7 @@
 
     <!-- EMERGENCY ALERT CARD -->
     <LinearLayout
+        android:id="@+id/emergencyCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -42,17 +41,16 @@
         android:layout_margin="16dp"
         android:padding="12dp">
 
-        <!-- Alert image -->
-
-        <!-- Alert text -->
         <ImageView
-            android:layout_width="348dp"
+            android:layout_width="match_parent"
             android:layout_height="185dp"
             android:contentDescription="alert image"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_alert_house" />
 
+        <!-- main status/title -->
         <TextView
+            android:id="@+id/alertTypeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Emergency Alert"
@@ -61,18 +59,22 @@
             android:layout_marginTop="8dp"
             android:textSize="14sp"/>
 
+        <!-- main alert message -->
         <TextView
+            android:id="@+id/alertMessageText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Danger! Gas Leak Detected. Take Action Now!"
+            android:text="No Gas Leak Detected."
             android:textStyle="bold"
             android:textSize="16sp"
             android:layout_marginTop="4dp" />
 
+        <!-- time / location -->
         <TextView
+            android:id="@+id/alertTimeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kitchen Sensor • 2 min ago"
+            android:text="Safe"
             android:textSize="12sp"
             android:textColor="#666666"
             android:layout_marginTop="2dp"/>
@@ -86,6 +88,7 @@
             android:layout_marginTop="10dp">
 
             <Button
+                android:id="@+id/btnCallEmergency"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:background="@drawable/bg_button_green"
@@ -93,7 +96,6 @@
                 android:textColor="@android:color/white"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"/>
-
         </LinearLayout>
 
         <!-- Action Buttons (Mute Alarm / View Details) -->
@@ -105,7 +107,6 @@
             android:paddingHorizontal="16dp"
             android:gravity="center_vertical">
 
-            <!-- Mute Alarm Button on Left -->
             <Button
                 android:id="@+id/btnMuteAlarm"
                 android:layout_width="wrap_content"
@@ -119,7 +120,6 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <!-- View Details Button on Right -->
             <Button
                 android:id="@+id/btnViewDetails"
                 android:layout_width="wrap_content"
@@ -140,7 +140,6 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"/>
 
-    <!-- Tabs (Danger, Warning, Info) -->
     <!-- Tabs (All, Danger, Warning, Info) -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -152,6 +151,7 @@
         android:gravity="start">
 
         <TextView
+            android:id="@+id/tabAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="All"
@@ -159,23 +159,25 @@
             android:textStyle="bold"/>
 
         <TextView
+            android:id="@+id/tabDanger"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Danger"
             android:layout_marginEnd="16dp"/>
 
         <TextView
+            android:id="@+id/tabWarning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Warning"
             android:layout_marginEnd="16dp"/>
 
         <TextView
+            android:id="@+id/tabInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Info"/>
     </LinearLayout>
-
 
     <!-- RECENT ALERTS LIST -->
     <ScrollView
@@ -190,46 +192,21 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Example Alert Item -->
-            <LinearLayout
+            <TextView
+                android:id="@+id/noAlertsMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp"
-                android:gravity="center_vertical">
+                android:text="No leak detected."
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:gravity="center_horizontal"
+                android:paddingTop="20dp"
+                android:visibility="gone"  />
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_gas"
-                    android:contentDescription="alert icon"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginStart="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Gas Leak Detected"
-                        android:textStyle="bold"
-                        android:textSize="14sp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Kitchen Sensor • Danger"
-                        android:textSize="12sp"
-                        android:textColor="#666666"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- Repeat this block for each alert -->
         </LinearLayout>
     </ScrollView>
 
+    <!-- BOTTOM NAV -->
     <LinearLayout
         android:id="@+id/customBottomNav"
         android:layout_width="match_parent"
@@ -238,7 +215,6 @@
         android:background="#FFFFFF"
         android:gravity="center">
 
-        <!-- Home -->
         <LinearLayout
             android:id="@+id/navHome"
             android:layout_width="0dp"
@@ -248,13 +224,12 @@
             android:gravity="center"
             android:clickable="true"
             android:focusable="true">
-
             <ImageView
+                android:id="@+id/btnDashboard"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_home"
                 app:tint="#000" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -262,7 +237,6 @@
                 android:textSize="12sp"/>
         </LinearLayout>
 
-        <!-- Alerts -->
         <LinearLayout
             android:id="@+id/navAlerts"
             android:layout_width="0dp"
@@ -272,13 +246,12 @@
             android:gravity="center"
             android:clickable="true"
             android:focusable="true">
-
             <ImageView
+                android:id="@+id/btnAlert"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_alert"
                 app:tint="#000" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -295,13 +268,12 @@
             android:gravity="center"
             android:clickable="true"
             android:focusable="true">
-
             <ImageView
+                android:id="@+id/btnHistory"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_history"
                 app:tint="#000" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -309,7 +281,6 @@
                 android:textSize="12sp"/>
         </LinearLayout>
 
-        <!-- Settings -->
         <LinearLayout
             android:id="@+id/navSettings"
             android:layout_width="0dp"
@@ -319,13 +290,12 @@
             android:gravity="center"
             android:clickable="true"
             android:focusable="true">
-
             <ImageView
+                android:id="@+id/btnSettings"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_setting"
                 app:tint="#000" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -333,5 +303,4 @@
                 android:textSize="12sp"/>
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

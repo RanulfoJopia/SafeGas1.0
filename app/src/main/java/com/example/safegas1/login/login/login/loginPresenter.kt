@@ -1,8 +1,9 @@
 package com.example.safegas1.login.login.login
 
+import android.content.Context
 import com.google.firebase.database.*
 
-class LoginPresenter(private val view: LoginView) {
+class LoginPresenter(private val view: LoginView, private val context: Context) {
 
     private val database: DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
 
@@ -12,7 +13,6 @@ class LoginPresenter(private val view: LoginView) {
             return
         }
 
-        // Query Firebase for user with matching email
         val query = database.orderByChild("email").equalTo(email)
 
         query.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -21,6 +21,14 @@ class LoginPresenter(private val view: LoginView) {
                     for (userSnap in snapshot.children) {
                         val dbPassword = userSnap.child("password").value.toString()
                         if (dbPassword == password) {
+
+                            // ✅ Get uid from Firebase
+                            val uid = userSnap.child("uid").value.toString()
+
+                            // ✅ Save to SharedPreferences
+                            val sharedPref = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+                            sharedPref.edit().putString("user_uid", uid).apply()
+
                             view.onLoginSuccess("Login successful")
                             return
                         }
