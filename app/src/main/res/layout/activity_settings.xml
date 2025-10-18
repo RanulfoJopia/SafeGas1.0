@@ -215,9 +215,9 @@ Battery 82%, Last seen 2 min ago"
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:gravity="center_vertical"
                     android:drawableEnd="@drawable/arrow_right"
                     android:drawablePadding="8dp"
+                    android:gravity="center_vertical"
                     android:text="Liam Harper" />
 
                 <TextView
@@ -289,13 +289,13 @@ Battery 82%, Last seen 2 min ago"
             android:gravity="center">
 
             <ImageView
+                android:id="@+id/btnAlert"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_alert"
                 app:tint="#000" />
 
             <TextView
-                android:id="@+id/btnAlert"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Alerts"

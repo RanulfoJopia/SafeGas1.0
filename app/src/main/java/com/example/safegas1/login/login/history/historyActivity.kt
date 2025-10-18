@@ -9,7 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.safegas1.R
 import com.example.safegas1.login.login.dashboard.dashboardActivity
-import com.example.safegas1.login.login.alert.AlertActivity // <-- Import alertActivity
+import com.example.safegas1.login.login.alert.alertActivity // <-- Import alertActivity
 import com.example.safegas1.login.login.settings.settingsActivity
 
 class historyActivity : AppCompatActivity() {
@@ -32,7 +32,7 @@ class historyActivity : AppCompatActivity() {
 
         val btnAlert = findViewById<ImageView>(R.id.btnAlert)
         btnAlert.setOnClickListener {
-            startActivity(Intent(this, AlertActivity::class.java)) // <-- Navigate to alertActivity
+            startActivity(Intent(this, alertActivity::class.java)) // <-- Navigate to alertActivity
             // finish()
         }
 

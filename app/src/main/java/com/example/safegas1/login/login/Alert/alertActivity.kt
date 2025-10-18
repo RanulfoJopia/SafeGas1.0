@@ -12,7 +12,7 @@ import com.example.safegas1.login.login.dashboard.dashboardActivity
 import com.example.safegas1.login.login.history.historyActivity
 import com.example.safegas1.login.login.settings.settingsActivity
 
-class AlertActivity : AppCompatActivity(), AlertView {
+class alertActivity : AppCompatActivity(), AlertView {
 
     private lateinit var presenter: AlertPresenter
     private lateinit var alertsContainer: LinearLayout

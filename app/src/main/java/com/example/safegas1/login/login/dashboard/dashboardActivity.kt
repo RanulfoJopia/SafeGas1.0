@@ -7,7 +7,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.safegas1.R
-import com.example.safegas1.login.login.alert.AlertActivity
+import com.example.safegas1.login.login.alert.alertActivity
 import com.example.safegas1.login.login.history.historyActivity
 import com.example.safegas1.login.login.settings.settingsActivity
 
@@ -47,7 +47,7 @@ class dashboardActivity : AppCompatActivity(), DashboardView {
 
         // Buttons
         findViewById<ImageView>(R.id.btnAlert).setOnClickListener {
-            startActivity(Intent(this, AlertActivity::class.java))
+            startActivity(Intent(this, alertActivity::class.java))
         }
 
         findViewById<ImageView>(R.id.btnHistory).setOnClickListener {
